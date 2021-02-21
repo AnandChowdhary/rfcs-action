@@ -2,6 +2,9 @@ name: "RFCs Action"
 description: "GitHub Action to manage your RFCs repository"
 author: "Koj <https://github.com/koj.co>"
 inputs:
+  token:
+    required: true
+    description: "GitHub token"
   dirName:
     required: false
     description: "Directory containing RFC documents"
