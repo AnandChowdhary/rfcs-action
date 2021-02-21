@@ -1,6 +1,6 @@
 {
   "name": "rfcs-action",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "GitHub Action to manage your RFCs repository",
   "main": "dist/index.js",
   "scripts": {
