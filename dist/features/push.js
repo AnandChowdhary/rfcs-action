@@ -47,7 +47,7 @@ const onPush = async (params) => {
                 title: `RFC: ${title}`,
                 body: `Let's use this issue to discuss the proposal **${title}** by @${assignee} 👇
 
-[**Read the proposal →**](./${file})
+[**Read the proposal →**](https://github.com/${owner}/${repo}/blob/HEAD/${file})
 
 🔔 Pinging @${teamName || `${owner}/everyone`}, please give your feedback!
 `.trim() + "\n",
