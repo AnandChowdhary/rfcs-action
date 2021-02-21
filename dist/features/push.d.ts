@@ -6,4 +6,5 @@ export declare const onPush: (params: {
     dirName: string;
     commitEmail: string;
     commitUsername: string;
+    teamName?: string;
 }) => Promise<void>;

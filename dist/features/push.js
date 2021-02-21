@@ -12,7 +12,7 @@ const path_1 = require("path");
 const recursive_readdir_1 = __importDefault(require("recursive-readdir"));
 const onPush = async (params) => {
     core_1.debug("Started onPush");
-    const { context, octokit, dirName, commitEmail, commitUsername } = params;
+    const { context, octokit, dirName, commitEmail, commitUsername, teamName } = params;
     const { owner, repo } = context.repo;
     const { readFile, writeFile } = fs_1.promises;
     const files = await recursive_readdir_1.default(path_1.join(".", dirName));
@@ -47,7 +47,7 @@ const onPush = async (params) => {
                 title: `RFC: ${title}`,
                 body: `Let's use this issue to discuss the proposal **${title}** by @${assignee} 👇
 
-OK
+🔔 Pinging @${teamName || `${owner}/everyone`}, please give your feedback!
 `.trim() + "\n",
                 assignee,
                 labels: ["rfc"],

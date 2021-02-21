@@ -2574,8 +2574,9 @@ const run = async () => {
     const command = core_1.getInput("command") || "on-push";
     const commitEmail = core_1.getInput("commitEmail") || "41898282+github-actions[bot]@users.noreply.github.com";
     const commitUsername = core_1.getInput("commitUsername") || "github-actions[bot]";
+    const teamName = core_1.getInput("teamName");
     if (command === "on-push")
-        return push_1.onPush({ context: utils_1.context, octokit, dirName, commitEmail, commitUsername });
+        return push_1.onPush({ context: utils_1.context, octokit, dirName, commitEmail, commitUsername, teamName });
 };
 exports.run = run;
 exports.run()
@@ -11125,7 +11126,7 @@ const path_1 = __webpack_require__(622);
 const recursive_readdir_1 = __importDefault(__webpack_require__(50));
 const onPush = async (params) => {
     core_1.debug("Started onPush");
-    const { context, octokit, dirName, commitEmail, commitUsername } = params;
+    const { context, octokit, dirName, commitEmail, commitUsername, teamName } = params;
     const { owner, repo } = context.repo;
     const { readFile, writeFile } = fs_1.promises;
     const files = await recursive_readdir_1.default(path_1.join(".", dirName));
@@ -11160,7 +11161,7 @@ const onPush = async (params) => {
                 title: `RFC: ${title}`,
                 body: `Let's use this issue to discuss the proposal **${title}** by @${assignee} 👇
 
-OK
+🔔 Pinging @${teamName || `${owner}/everyone`}, please give your feedback!
 `.trim() + "\n",
                 assignee,
                 labels: ["rfc"],
