@@ -80,6 +80,7 @@ Discuss this RFC document in the issue [#${attributes.issue}](https://github.com
     core_1.debug("Written api.json file");
     child_process_1.execSync(`git config --global user.email "${commitEmail}"`);
     child_process_1.execSync(`git config --global user.name "${commitUsername}"`);
+    child_process_1.execSync("git pull");
     core_1.debug("Added git config user details");
     child_process_1.execSync("git add .");
     child_process_1.execSync('git commit -m ":bento: Update API and front matter [skip ci]"');
