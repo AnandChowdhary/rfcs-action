@@ -93,6 +93,7 @@ Discuss this RFC document in the issue [#${attributes.issue}](https://github.com
   debug("Written api.json file");
   execSync(`git config --global user.email "${commitEmail}"`);
   execSync(`git config --global user.name "${commitUsername}"`);
+  execSync("git pull");
   debug("Added git config user details");
   execSync("git add .");
   execSync('git commit -m ":bento: Update API and front matter [skip ci]"');
