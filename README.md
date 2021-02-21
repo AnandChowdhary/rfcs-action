@@ -1,6 +1,6 @@
-# 🎬 GitHub Actions Starter
+# 💬 RFCs GitHub Action
 
-GitHub Actions starter for TypeScript with automated releases to `dist`, Semantic Release, and auto-PR merges.
+This repository contains a GitHub Action that helps you manage your Request for Comments (RFC) repository. It has some smart automations to make discussions about RFCs easier.
 
 [![Build CI](https://github.com/koj-co/rfcs-action/workflows/Build%20CI/badge.svg)](https://github.com/koj-co/rfcs-action/actions?query=workflow%3A%22Build+CI%22)
 [![Test CI](https://github.com/koj-co/rfcs-action/workflows/Test%20CI/badge.svg)](https://github.com/koj-co/rfcs-action/actions?query=workflow%3A%22Test+CI%22)
@@ -9,12 +9,8 @@ GitHub Actions starter for TypeScript with automated releases to `dist`, Semanti
 
 ## ⭐ Features
 
-- Write source in TypeScript
-- Auto-publish compiled code to `dist/`
-- Semantic Release to GitHub and npm
-- Includes Actions Core and Octokit
-
-[**Create a repository using this template →**](https://github.com/koj-co/rfcs-action/generate)
+- Links RFC documents with issues
+- Automatically syncs issue details with document
 
 ## 📄 License
 
