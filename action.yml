@@ -8,6 +8,12 @@ inputs:
   command:
     required: false
     description: "Command to execute"
+  commitEmail:
+    required: false
+    description: "Email for commit message"
+  commitUsername:
+    required: false
+    description: "Username for commit message"
 runs:
   using: "node12"
   main: "dist/index.js"
