@@ -14,9 +14,10 @@ export const onPush = async (params: {
   dirName: string;
   commitEmail: string;
   commitUsername: string;
+  teamName?: string;
 }) => {
   debug("Started onPush");
-  const { context, octokit, dirName, commitEmail, commitUsername } = params;
+  const { context, octokit, dirName, commitEmail, commitUsername, teamName } = params;
   const { owner, repo } = context.repo;
   const { readFile, writeFile } = promises;
 
@@ -56,7 +57,7 @@ export const onPush = async (params: {
         body:
           `Let's use this issue to discuss the proposal **${title}** by @${assignee} 👇
 
-OK
+🔔 Pinging @${teamName || `${owner}/everyone`}, please give your feedback!
 `.trim() + "\n",
         assignee,
         labels: ["rfc"],

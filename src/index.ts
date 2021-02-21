@@ -14,9 +14,10 @@ export const run = async () => {
   const commitEmail =
     getInput("commitEmail") || "41898282+github-actions[bot]@users.noreply.github.com";
   const commitUsername = getInput("commitUsername") || "github-actions[bot]";
+  const teamName = getInput("teamName");
 
   if (command === "on-push")
-    return onPush({ context, octokit, dirName, commitEmail, commitUsername });
+    return onPush({ context, octokit, dirName, commitEmail, commitUsername, teamName });
 };
 
 run()
