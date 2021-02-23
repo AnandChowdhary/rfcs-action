@@ -38,7 +38,8 @@ export const onPush = async (params: {
       execSync(`git log --format=%aD ${file} | tail -1`).toString().trim()
     );
     debug(`Post created at ${createdAt}`);
-    if (!attributes.issue || !attributes.author) {
+    if (attributes.draft) debug("Post is a draft, skipping");
+    if ((!attributes.issue || !attributes.author) && !attributes.draft) {
       debug("No attributes found, setting up");
       const commits = await octokit.repos.listCommits({
         owner,
@@ -70,26 +71,34 @@ export const onPush = async (params: {
       await writeFile(
         join(".", file),
         `---
-author: ${attributes.author}
-issue: ${attributes.issue}
+${Object.keys(attributes)
+  .map((i) => `${i}: ${attributes[i]}`)
+  .join("\n")}
 ---
 
 ${body}
 
 ## Discuss
 
-Discuss this RFC document in the issue [#${attributes.issue}](https://github.com/${owner}/${repo}/issues/${attributes.issue}): [**Discuss this document →**](https://github.com/${owner}/${repo}/issues/${attributes.issue})
+Discuss this RFC document in the issue [#${
+          attributes.issue
+        }](https://github.com/${owner}/${repo}/issues/${
+          attributes.issue
+        }): [**Discuss this document →**](https://github.com/${owner}/${repo}/issues/${
+          attributes.issue
+        })
 `.trim() + "\n"
       );
+      debug("Written file");
     }
-    debug("Written file");
-    api.push({
-      title,
-      file,
-      author: attributes.author || "",
-      issue: attributes.issue,
-      createdAt: createdAt.toISOString(),
-    });
+    if (attributes.issue)
+      api.push({
+        title,
+        file,
+        author: attributes.author || "",
+        issue: attributes.issue,
+        createdAt: createdAt.toISOString(),
+      });
   }
   await writeFile(join(".", "api.json"), JSON.stringify(api, null, 2));
   debug("Written api.json file");

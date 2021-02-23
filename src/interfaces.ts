@@ -6,7 +6,8 @@ export interface ApiRecord {
   issue: number;
 }
 
-export interface FrontMatter {
+export type FrontMatter = Record<string, string> & {
   author?: string;
   issue?: number;
-}
+  draft?: boolean;
+};
