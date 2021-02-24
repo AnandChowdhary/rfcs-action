@@ -78,7 +78,11 @@ Discuss this RFC document in the issue [#${attributes.issue}](https://github.com
         const oldBody = await readFile(path_1.join(".", file), "utf8");
         if (!oldBody.includes("Table of contents")) {
             let newBody = oldBody;
-            newBody = newBody.replace("## ", `## Table of contents\n\n${markdown_toc_1.default(oldBody).content}\n\n## `);
+            newBody = newBody.replace("## ", `## Table of contents
+
+${markdown_toc_1.default(oldBody).content}
+
+## `);
             await writeFile(path_1.join(".", file), prettier_1.format(newBody, { parser: "markdown" }));
         }
         if (attributes.issue)
