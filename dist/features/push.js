@@ -7,9 +7,11 @@ exports.onPush = void 0;
 const core_1 = require("@actions/core");
 const child_process_1 = require("child_process");
 const front_matter_1 = __importDefault(require("front-matter"));
+const prettier_1 = require("prettier");
 const fs_1 = require("fs");
 const path_1 = require("path");
 const recursive_readdir_1 = __importDefault(require("recursive-readdir"));
+const markdown_toc_1 = __importDefault(require("markdown-toc"));
 const onPush = async (params) => {
     core_1.debug("Started onPush");
     const { context, octokit, dirName, commitEmail, commitUsername, teamName } = params;
@@ -72,6 +74,12 @@ ${body}
 Discuss this RFC document in the issue [#${attributes.issue}](https://github.com/${owner}/${repo}/issues/${attributes.issue}): [**Discuss this document →**](https://github.com/${owner}/${repo}/issues/${attributes.issue})
 `.trim() + "\n");
             core_1.debug("Written file");
+        }
+        const oldBody = await readFile(path_1.join(".", file), "utf8");
+        if (!oldBody.includes("Table of contents")) {
+            let newBody = oldBody;
+            newBody = newBody.replace("## ", `## Table of contents\n\n${markdown_toc_1.default(oldBody).content}\n\n## `);
+            await writeFile(path_1.join(".", file), prettier_1.format(newBody, { parser: "markdown" }));
         }
         if (attributes.issue)
             api.push({
