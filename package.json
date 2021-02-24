@@ -41,6 +41,7 @@
     "@koj/config": "^1.2.5",
     "@types/recursive-readdir": "^2.2.0",
     "front-matter": "^4.0.2",
+    "markdown-toc": "^1.2.0",
     "recursive-readdir": "^2.2.2"
   },
   "jest": {
