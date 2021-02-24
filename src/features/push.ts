@@ -3,10 +3,12 @@ import type { Context } from "@actions/github/lib/context";
 import type { GitHub } from "@actions/github/lib/utils";
 import { execSync } from "child_process";
 import frontMatter from "front-matter";
+import { format } from "prettier";
 import { promises } from "fs";
 import { extname, join } from "path";
 import recursiveReaddir from "recursive-readdir";
 import type { ApiRecord, FrontMatter } from "../interfaces";
+import toc from "markdown-toc";
 
 export const onPush = async (params: {
   context: Context;
@@ -90,6 +92,12 @@ Discuss this RFC document in the issue [#${
 `.trim() + "\n"
       );
       debug("Written file");
+    }
+    const oldBody = await readFile(join(".", file), "utf8");
+    if (!oldBody.includes("Table of contents")) {
+      let newBody = oldBody;
+      newBody = newBody.replace("## ", `## Table of contents\n\n${toc(oldBody).content}\n\n## `);
+      await writeFile(join(".", file), format(newBody, { parser: "markdown" }));
     }
     if (attributes.issue)
       api.push({
