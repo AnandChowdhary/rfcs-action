@@ -96,7 +96,14 @@ Discuss this RFC document in the issue [#${
     const oldBody = await readFile(join(".", file), "utf8");
     if (!oldBody.includes("Table of contents")) {
       let newBody = oldBody;
-      newBody = newBody.replace("## ", `## Table of contents\n\n${toc(oldBody).content}\n\n## `);
+      newBody = newBody.replace(
+        "## ",
+        `## Table of contents
+
+${toc(oldBody).content}
+
+## `
+      );
       await writeFile(join(".", file), format(newBody, { parser: "markdown" }));
     }
     if (attributes.issue)
